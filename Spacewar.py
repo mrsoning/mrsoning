@@ -1,5 +1,7 @@
 import pygame
 import button
+import random
+
 
 pygame.init()
 
@@ -9,6 +11,8 @@ SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Spasewar")
+icon = pygame.image.load('images/icon.png')
+pygame.display.set_icon(icon)
 
 #game variables
 game_paused = False
@@ -39,22 +43,26 @@ while run:
   screen.fill((52, 78, 91))
 
   #check if game is paused
-  if game_paused == True:
+  if game_paused == False:
     #check menu state
     if menu_state == "main":
       #draw pause screen buttons
       if resume_button.draw(screen):
-        game_paused = False
+        game_paused = True
       if quit_button.draw(screen):
         run = False
   else:
-    draw_text("Press Esc to pause", font, TEXT_COL, 160, 250)
+    screen.fill((20, 20, 20))
+    my_spaseship = pygame.image.load("images/Spaceship_me.png")
+    screen.blit(my_spaseship, (250, 150))
+    enemy_spaceship = pygame.image.load("images/Spaceship_enemy.png")
+    screen.blit(enemy_spaceship, (10, 10))
 
   #event handler
   for event in pygame.event.get():
     if event.type == pygame.KEYDOWN:
       if event.key == pygame.K_ESCAPE:
-        game_paused = True
+        game_paused = False
     if event.type == pygame.QUIT:
       run = False
 
