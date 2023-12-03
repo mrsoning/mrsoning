@@ -84,4 +84,4 @@ while run:
 
 pygame.quit()
 
-clock.tick(10)
+clock.tick(15)
