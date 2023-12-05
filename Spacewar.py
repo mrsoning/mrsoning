@@ -6,9 +6,13 @@ clock = pygame.time.Clock()
 
 pygame.init()
 
+player_x = 400
+player_y = 280
+
+
 #create game window
-SCREEN_WIDTH = 626
-SCREEN_HEIGHT = 417
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Spasewar")
@@ -35,8 +39,8 @@ resume_img = pygame.image.load("images/button_resume.png").convert_alpha()
 quit_img = pygame.image.load("images/button_quit.png").convert_alpha()
 
 #create button instances
-resume_button = button.Button(220, 100, resume_img, 1)
-quit_button = button.Button(250, 250, quit_img, 1)
+resume_button = button.Button(230, 250, resume_img, 1)
+quit_button = button.Button(430, 250, quit_img, 1)
 
 def draw_text(text, font, text_col, x, y):
   img = font.render(text, True, text_col)
@@ -60,14 +64,37 @@ while run:
   else:
     # game
     background = pygame.image.load("images/background.jpg")
+    background = pygame.transform.scale(background, (800, 600))
     screen.blit(background, (0, 0))
 
 
-    my_spaseship = pygame.image.load("images/Spaceship_me.png")
-    screen.blit(my_spaseship, (270, 170))
 
+    player_speed = 3
+
+    # move my spaceship
+    my_spaseship = pygame.image.load("images/Spaceship_me.png")
+    my_spaseship = pygame.transform.scale(my_spaseship, (32, 32))
+    screen.blit(my_spaseship, (player_x, player_y))
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+      print("w")
+      player_y -= player_speed
+    if keys[pygame.K_s]:
+      print("s")
+      player_y += player_speed
+    if keys[pygame.K_a]:
+      print("a")
+      player_x -= player_speed
+    if keys[pygame.K_d]:
+      print("d")
+      player_x += player_speed
+    print(player_y, player_x)
+
+    pygame.display.update()
 
     enemy_spaceship = pygame.image.load("images/Spaceship_enemy.png")
+    enemy_spaceship = pygame.transform.scale(enemy_spaceship, (32, 32))
     screen.blit(enemy_spaceship, (10, 10))
 
 
@@ -83,5 +110,4 @@ while run:
   pygame.display.update()
 
 pygame.quit()
-
 clock.tick(15)
