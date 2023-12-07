@@ -1,6 +1,5 @@
 import pygame
 import button
-import random
 
 clock = pygame.time.Clock()
 
